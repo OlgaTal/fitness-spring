@@ -24,6 +24,7 @@ public class ExerciseService {
     }
 
     public void saveExcercise(int userId, Exercise exercise) {
+
         User user = new User();
         user.setId(userId);
 
@@ -32,11 +33,27 @@ public class ExerciseService {
 
     }
 
+    public boolean updateExcercise(int userId, Exercise exercise) {
+
+        Exercise oldExercise = repository.findOne(exercise.getId());
+        if (oldExercise != null && oldExercise.getUser() != null &&
+            oldExercise.getUser().getId() == userId) {
+            oldExercise.setCalories(exercise.getCalories());
+            oldExercise.setDuration(exercise.getDuration());
+            oldExercise.setQuantity(exercise.getQuantity());
+            oldExercise.setType(exercise.getType());
+
+            repository.save(oldExercise);
+            return true;
+        }
+        return false;
+    }
+
     public boolean deleteExcercise(int userId, int exerciseId) {
         Exercise exercise = repository.findOne(exerciseId);
 
         if (exercise != null && exercise.getUser() != null &&
-            exercise.getUser().getId() == exerciseId) {
+            exercise.getUser().getId() == userId) {
             repository.delete(exerciseId);
             return true;
         }

@@ -49,4 +49,14 @@ public class ExerciseController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateExercise(@RequestBody Exercise exercise,
+                                            Principal user) {
+        int uid = ((JwtToken) user).getUserId();
+        boolean success = service.updateExcercise(uid, exercise);
+        if (success) {
+            return ResponseEntity.status(HttpStatus.OK).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
 }
