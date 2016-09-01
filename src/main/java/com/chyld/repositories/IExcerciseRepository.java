@@ -10,4 +10,5 @@ import java.util.List;
 public interface IExcerciseRepository extends PagingAndSortingRepository<Exercise, Integer> {
 
     public List<Exercise> findByUser(User user);
+
 }
