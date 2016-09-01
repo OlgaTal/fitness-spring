@@ -9,6 +9,7 @@ import com.chyld.services.RoleService;
 import com.chyld.services.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -59,6 +60,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
+    @RequestMapping(path = {"/users/", "/users"}, method = RequestMethod.GET)
+    public Page<User> index(@RequestParam(name = "page", required = false, defaultValue = "0") int page, Principal principal) {
+        return this.userService.findAll(page);
+    }
+
+
+
     @Transactional
     @RequestMapping(value = "/users/{username}/delete", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteUser(@PathVariable String username, Principal adminPrincipal) throws JsonProcessingException {
@@ -66,7 +74,6 @@ public class UserController {
 
         User adminuser =  userService.findUserById(uid);
 
-        // Does Bob have admin role?
         List<Role> adminRoles = adminuser.getRoles();
 
         boolean isAdmin = false;
@@ -82,40 +89,7 @@ public class UserController {
 
         userService.deleteByUsername(username);
 
-
-        // If so, delete user by username
-
-        // Hmm
-//        if (ud != null) {
-//            return ResponseEntity.badRequest().body(EMAIL_EXISTS_MESSAGE);
-//        }
-//
-//        User user = new User();
-//        user.setEnabled(true);
-//        user.setUsername(auth.getUsername());
-//        user.setPassword(passwordEncoder.encode(auth.getPassword()));
-
         return ResponseEntity.status(HttpStatus.OK).body(null);
-
-
-//        int uid = ((JwtToken)user).getUserId();
-//        User u = userService.findUserById(uid);
-//
-//        if(u.getProfile() == null){
-//            u.setProfile(profile);
-//            profile.setUser(u);
-//        } else {
-//            u.getProfile().setAge(profile.getAge());
-//            u.getProfile().setGender(profile.getGender());
-//            u.getProfile().setPhoto(profile.getPhoto());
-//            u.getProfile().setHeight(profile.getHeight());
-//            u.getProfile().setWeight(profile.getWeight());
-//        }
-//
-//        userService.saveUser(u);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(null);
-
-        // http://localhost:3333/users/{username}/delete
 
     }
 }
