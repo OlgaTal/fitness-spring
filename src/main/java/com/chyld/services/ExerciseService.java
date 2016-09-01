@@ -59,4 +59,15 @@ public class ExerciseService {
         }
         return false;
     }
+
+    public Exercise findExcercise(int userId, int exerciseId) {
+        Exercise exercise = repository.findOne(exerciseId);
+
+        if (exercise != null && exercise.getUser() != null &&
+                exercise.getUser().getId() == userId) {
+            return exercise;
+        }
+        return null;
+    }
+
 }

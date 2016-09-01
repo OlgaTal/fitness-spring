@@ -32,6 +32,13 @@ public class ExerciseController {
         return exercises;
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Exercise getExercise(@PathVariable int id, Principal user) {
+        int uid = ((JwtToken)user).getUserId();
+        Exercise exercise = service.findExcercise(uid, id);
+        return exercise;
+    }
+
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<?> saveExercise(@RequestBody Exercise exercise, Principal user) {
         int uid = ((JwtToken)user).getUserId();
