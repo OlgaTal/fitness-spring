@@ -51,6 +51,7 @@ public class Profile {
     @UpdateTimestamp
     public Date getModified() {return modified;}
     public void setModified(Date modified) {this.modified = modified;}
+<<<<<<< HEAD
 
     public int getAge() {
         return age;
@@ -83,4 +84,6 @@ public class Profile {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+=======
+>>>>>>> f80f338cf5c11ddb236a45eedfbd68af3162290f
 }

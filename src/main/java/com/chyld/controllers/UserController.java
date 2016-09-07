@@ -1,6 +1,10 @@
 package com.chyld.controllers;
 
 import com.chyld.dtos.AuthDto;
+<<<<<<< HEAD
+=======
+import com.chyld.dtos.UserDto;
+>>>>>>> f80f338cf5c11ddb236a45eedfbd68af3162290f
 import com.chyld.entities.Role;
 import com.chyld.entities.User;
 import com.chyld.enums.RoleEnum;
@@ -9,20 +13,37 @@ import com.chyld.services.RoleService;
 import com.chyld.services.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 import org.springframework.data.domain.Page;
+=======
+>>>>>>> f80f338cf5c11ddb236a45eedfbd68af3162290f
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+<<<<<<< HEAD
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+=======
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+>>>>>>> f80f338cf5c11ddb236a45eedfbd68af3162290f
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
 
 @RestController
+=======
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("/users")
+>>>>>>> f80f338cf5c11ddb236a45eedfbd68af3162290f
 public class UserController {
 
     private static final String EMAIL_EXISTS_MESSAGE = "This email is in use";
@@ -38,8 +59,13 @@ public class UserController {
         this.roleService = roleService;
     }
 
+<<<<<<< HEAD
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public ResponseEntity<?> createUser(@Valid @RequestBody AuthDto auth) throws JsonProcessingException {
+=======
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public ResponseEntity<?> createUser(@Valid @RequestBody AuthDto auth) {
+>>>>>>> f80f338cf5c11ddb236a45eedfbd68af3162290f
         final String requestedEmail = auth.getUsername();
 
         UserDetails ud =  userService.loadUserByUsername(requestedEmail);
@@ -60,6 +86,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
+<<<<<<< HEAD
     @RequestMapping(path = {"/users/", "/users"}, method = RequestMethod.GET)
     public Page<User> index(@RequestParam(name = "page", required = false, defaultValue = "0") int page, Principal principal) {
         return this.userService.findAll(page);
@@ -91,5 +118,14 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.OK).body(null);
 
+=======
+    @RequestMapping(value = "/credentials", method = RequestMethod.GET)
+    public UserDto credentials(Principal user) {
+        int uid = ((JwtToken)user).getUserId();
+        User u = userService.findUserById(uid);
+        List<String> roles = u.getRoles().stream().map(r -> r.getRole().toString()).collect(Collectors.toList());
+        UserDto userDto = new UserDto(u.getUsername(), roles);
+        return userDto;
+>>>>>>> f80f338cf5c11ddb236a45eedfbd68af3162290f
     }
 }
