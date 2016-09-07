@@ -16,3 +16,5 @@ VALUES ('0', 'M', '25', '70', '165', 'http://findicons.com/files/icons/1072/face
 
 INSERT INTO `fitness`.`exercises` (`id`, `version`, `type`, `quantity`, `calories`, `duration`, `created`, `modified`, `user_id`)
 VALUES ('1', '1', 'SWIM', '10', '300', '20', '2016-09-01', '2016-09-01', '2');
+
+INSERT INTO `fitness`.`devices` (`id`, `serial_number`, `product`, `category`, `user_id`) VALUES ('1', 'abc123', 'fitthing', 'walking', '1');
