@@ -24,10 +24,6 @@ public class User implements UserDetails {
     private boolean enabled;
     private List<Role> roles;
     private Profile profile;
-<<<<<<< HEAD
-=======
-    private List<Exercise> exercises;
->>>>>>> f80f338cf5c11ddb236a45eedfbd68af3162290f
     private Date created;
     private Date modified;
 
@@ -60,13 +56,6 @@ public class User implements UserDetails {
     public Profile getProfile() {return profile;}
     public void setProfile(Profile profile) {this.profile = profile;}
 
-<<<<<<< HEAD
-=======
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    public List<Exercise> getExercises() {return exercises;}
-    public void setExercises(List<Exercise> exercises) {this.exercises = exercises;}
-
->>>>>>> f80f338cf5c11ddb236a45eedfbd68af3162290f
     @CreationTimestamp
     public Date getCreated() {return created;}
     public void setCreated(Date created) {this.created = created;}
