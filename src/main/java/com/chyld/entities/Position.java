@@ -67,11 +67,9 @@ public class Position {
     }
 
     @Column(name = "cur_time")
-    @CreationTimestamp
     public Date getCurrentTime() {
         return currentTime;
     }
-
     public void setCurrentTime(Date currentTime) {
         this.currentTime = currentTime;
     }
